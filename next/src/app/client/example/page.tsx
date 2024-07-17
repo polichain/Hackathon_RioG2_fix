@@ -1,5 +1,6 @@
 "use client";
 
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -90,8 +91,12 @@ const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         <div className="text-lg">
           PRICE: {price}
         </div>
-        <div>
-        <button className="px-4 py-2 border rounded">
+        
+        <div className="flex flex-col items-center space-y-4">
+        <ConnectButton />
+        <button 
+       
+        className="px-4 py-2 border rounded">
                 Buy (vai chamar o metamask atraves do wagmi que vai realizar o pagamento)
           </button>
         </div>
