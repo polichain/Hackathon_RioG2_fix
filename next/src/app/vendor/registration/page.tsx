@@ -1,5 +1,6 @@
 "use client";
-
+import { useWriteContract } from 'wagmi'
+import { energyMarketAbi } from "../../../generated"
 import React, { useState } from "react";
 import { useWriteEnergyMarketAddVendor } from "../../../generated"; // Certifique-se de que o caminho esteja correto
 
@@ -59,6 +60,18 @@ export default function Page() {
               className="px-4 py-2 border rounded"
             />
             <button
+            onClick={() => 
+              writeContractAsync ({ 
+                address: '0x6b175474e89094c44da98b954eedeac495271d0f',
+                type: "legacy",
+                args: [
+                  BigInt(capacity),
+                  BigInt(tax)
+
+                ],
+             })
+            }
+      
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
               disabled={isPending}
