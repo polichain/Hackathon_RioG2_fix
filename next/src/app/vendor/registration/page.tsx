@@ -60,7 +60,7 @@ export default function Page() {
               className="px-4 py-2 border rounded"
             />
             <button
-            onClick={() => 
+            /*onClick={() => 
               writeContractAsync ({ 
                 address: '0x6b175474e89094c44da98b954eedeac495271d0f',
                 type: "legacy",
@@ -70,7 +70,7 @@ export default function Page() {
 
                 ],
              })
-            }
+            }*/
       
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
