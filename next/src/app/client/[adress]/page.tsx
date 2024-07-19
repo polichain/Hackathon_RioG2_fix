@@ -75,8 +75,7 @@ export default function Page() {
           </div>
         </header>
 
-
-        <div className="flex flex-col items-center space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <ConnectButton />
         </div>
 
