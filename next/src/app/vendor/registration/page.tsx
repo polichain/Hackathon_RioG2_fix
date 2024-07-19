@@ -31,11 +31,12 @@ export default function Page() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="text-xl mb-8">Vendor Registration</div>
+    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0px' }}>
+      <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}>Vendor Registration</div>
+      <br></br>
       <div className="flex flex-col items-center space-y-4">
         <header>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
             <input
               type="number"
               value={capacity}
@@ -66,9 +67,9 @@ export default function Page() {
             </button>
           </form>
           {isSuccess && (
-            <p className="text-green-500 mt-4">Vendor added successfully!</p>
+            <p style={{ color: 'green', marginTop: '16px', fontSize: '1.2rem' }}>Vendor added successfully!</p>
           )}
-          {isError && <p className="text-red-500 mt-4">Error:</p>}
+          {isError && <p style={{ color: 'red', marginTop: '16px', fontSize: '1.5rem', fontWeight: '700' }}>Error:</p>}
         </header>
       </div>
     </main>

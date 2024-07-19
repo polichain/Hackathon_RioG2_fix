@@ -52,15 +52,17 @@ export default function Page() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="text-xl mb-8">Vendor Page</div>
+    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0px' }}>
+      <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}>Vendor Page</div>
+      <br></br>
       <div className="flex flex-col items-center space-y-4">
         <header>
           <div>
             <button onClick={handleWithdraw} className="px-4 py-2 border rounded">Withdrawn</button>
           </div>
+          <br></br>
           <div>
-            <form onSubmit={handleCapacity}>
+            <form onSubmit={handleCapacity} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <input
                 type="number"
                 value={capacity}
@@ -70,17 +72,19 @@ export default function Page() {
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
+                style={{ padding: '8px 16px' }}
                 disabled={capacity_pending}
-              ></button>
+              >
+                {capacity_pending ? "Submitting..." : "Submit"}
+              </button>
               {capacity_sucess && (
-                <p className="text-green-500 mt-4">Capacity changed successfully!</p>
+                <p style={{ color: 'green', textAlign: 'center' }}>Capacity changed successfully!</p>
               )}
-              {error_capacity && <p className="text-red-500 mt-4">Error:</p>}
+              {error_capacity && <p style={{ color: 'red', fontWeight: '700', textAlign: 'center' }}>Error:</p>}
             </form>
           </div>
           <div>
-            <form onSubmit={handleTax}>
+            <form onSubmit={handleTax} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <input
                 type="number"
                 value={tax}
@@ -90,17 +94,19 @@ export default function Page() {
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
+                style={{ padding: '8px 16px' }}
                 disabled={tax_pending}
-              ></button>
+              >
+                {tax_pending ? "Submitting..." : "Submit"}
+              </button>
+              {tax_sucess && (
+                <p style={{ color: 'green', textAlign: 'center' }}>Tax changed successfully!</p>
+              )}
+              {error_tax && <p style={{ color: 'red', fontWeight: '700', textAlign: 'center' }}>Error:</p>}
             </form>
-            {tax_sucess && (
-              <p className="text-green-500 mt-4">Tax changed successfully!</p>
-            )}
-            {error_tax && <p className="text-red-500 mt-4">Error:</p>}
           </div>
         </header>
-      </div>
-    </main>
+      </div >
+    </main >
   );
 }
