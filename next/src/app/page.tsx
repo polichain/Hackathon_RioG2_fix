@@ -3,15 +3,20 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="text-xl mb-8">Energy Market</div>
-      <div className="flex flex-col items-center space-y-4">
-        <div className="flex items-center justify-center space-x-4">
+    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
+      <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}>Energy Market</div>
+      <br />
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', gap: '16px' }}>
           <Link href="/client">
-            <button className="px-4 py-2 border rounded">Buy Energy</button>
+            <button style={{ width: '150px', padding: '16px', textAlign: 'center' }}>
+              Buy Energy
+            </button>
           </Link>
           <Link href="/vendor">
-            <button className="px-4 py-2 border rounded">Vendor</button>
+            <button style={{ width: '150px', padding: '16px', textAlign: 'center' }}>
+              Vendor
+            </button>
           </Link>
         </div>
       </div>

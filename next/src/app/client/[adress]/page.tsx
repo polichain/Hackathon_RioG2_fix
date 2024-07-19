@@ -53,7 +53,7 @@ export default function Page() {
   }
 
   return (
-    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px' }}>
+    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1px' }}>
       <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}> PURCHASE PAGE </div>
       <br></br>
       <br></br>
