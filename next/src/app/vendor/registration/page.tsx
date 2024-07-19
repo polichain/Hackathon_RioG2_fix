@@ -1,6 +1,6 @@
 "use client";
-import { useWriteContract } from 'wagmi'
-import { energyMarketAbi } from "../../../generated"
+import { useWriteContract } from "wagmi";
+import { energyMarketAbi } from "../../../generated";
 import React, { useState } from "react";
 import { useWriteEnergyMarketAddVendor } from "../../../generated"; // Certifique-se de que o caminho esteja correto
 
@@ -27,7 +27,7 @@ export default function Page() {
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     await writeContractAsync({
-      address: "0x6b175474e89094c44da98b954eedeac495271d0f",
+      address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
       args: [BigInt(capacity), BigInt(tax)],
     });
   };
@@ -60,7 +60,7 @@ export default function Page() {
               className="px-4 py-2 border rounded"
             />
             <button
-            /*onClick={() => 
+              /*onClick={() => 
               writeContractAsync ({ 
                 address: '0x6b175474e89094c44da98b954eedeac495271d0f',
                 type: "legacy",
@@ -71,7 +71,7 @@ export default function Page() {
                 ],
              })
             }*/
-      
+
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
               disabled={isPending}
