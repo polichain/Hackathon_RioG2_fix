@@ -53,8 +53,10 @@ export default function Page() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="text-xl mb-8">Purchase page</div>
+    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px' }}>
+      <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}> PURCHASE PAGE </div>
+      <br></br>
+      <br></br>
       <div className="flex flex-col items-center space-y-4">
         <header>
           <form onSubmit={(e) => e.preventDefault()}>
@@ -67,16 +69,22 @@ export default function Page() {
               className="px-4 py-2 border rounded"
             />
           </form>
+          <div style={{ fontSize: '1.2rem', fontWeight: '700' }}>
+            <br></br>
+            PRICE: {price}
+          </div>
         </header>
-        <div className="text-lg">
-          PRICE: {price}
-        </div>
+
 
         <div className="flex flex-col items-center space-y-4">
           <ConnectButton />
         </div>
+
+        <br>
+        </br>
+
         <SendTransaction />
       </div>
-    </main>
+    </main >
   );
 }
