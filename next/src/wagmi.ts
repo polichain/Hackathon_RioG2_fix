@@ -1,24 +1,16 @@
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 import {
-  arbitrum,
-  base,
-  mainnet,
-  optimism,
-  polygon,
-  sepolia,
+  hardhat,
 } from 'wagmi/chains';
-
+import { xrp } from './xrp';
 
 export const config = getDefaultConfig({
   appName: 'RainbowKit demo',
   projectId: 'YOUR_PROJECT_ID',
   chains: [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
+    xrp,
+    hardhat,
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [xrp] : []),
   ],
   ssr: true,
 });
