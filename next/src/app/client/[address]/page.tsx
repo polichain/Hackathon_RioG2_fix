@@ -1,14 +1,14 @@
-use client";
+"use client";
 
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useReadContract } from 'wagmi'
+import { useReadContract } from "wagmi";
 import React, { useState } from "react";
 import { SendTransaction } from "./sendtransaction";
-import { GetVendors } from "./getVendor"
+import { GetVendors } from "./getVendor";
 import { useWriteEnergyMarketBuyEnergy } from "../../../generated";
-import { parseEther } from 'viem';
-
+import { parseEther } from "viem";
+import { usePathname } from "next/navigation";
 
 const vendor = [
   { address: 0x1, name: "Vendor 1", taxa: 88, remainingCapacity: 1 },
@@ -36,7 +36,7 @@ export default function Page({ params }: { params: { name: string } }) {
   const [amount, setAmount] = useState<number | "">("");
   const [price, setPrice] = useState<number | "">(0);
 
-  const { writeContractAsync, isSuccess, isError, isPending, } =
+  const { writeContractAsync, isSuccess, isError, isPending } =
     useWriteEnergyMarketBuyEnergy();
 
   const priceInEther = parseEther(price.toString());
@@ -45,11 +45,10 @@ export default function Page({ params }: { params: { name: string } }) {
     event.preventDefault();
     await writeContractAsync({
       address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
-      args: ["0xC768B34f7F4f8A05AA51d741ef6027ec28c98558", BigInt(amount),],
+      args: ["0xC768B34f7F4f8A05AA51d741ef6027ec28c98558", BigInt(amount)],
       value: priceInEther,
     });
   };
-
 
   const handleSetAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value === "" ? "" : Number(event.target.value);
@@ -80,7 +79,6 @@ export default function Page({ params }: { params: { name: string } }) {
       </div>
       <br></br>
       <br></br>
-      <div>My Post: {params.name}</div>
       <div className="flex flex-col items-center space-y-4">
         <header>
           <form onSubmit={(e) => e.preventDefault()}>
@@ -98,9 +96,7 @@ export default function Page({ params }: { params: { name: string } }) {
             PRICE: {price}
           </div>
           <div>
-            <button onClick={handlePayment}>
-              Aceitas ?
-            </button>
+            <button onClick={handlePayment}>Aceitas ?</button>
           </div>
         </header>
 
