@@ -39,19 +39,16 @@ export default function Page({ params }: { params: { name: string } }) {
   const [amount, setAmount] = useState<number | "">("");
   const [price, setPrice] = useState<number | "">(0);
 
-  const { writeContractAsync, isSuccess, isError, isPending, } =
-   useWriteEnergyMarketBuyEnergy();
+  //const { readContract, isSuccess, isError, isPending } =
+  // useReadEnergyMarketVendors();
 
-   const priceInEther = parseEther(price.toString());
 
-   const handlePayment = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    await writeContractAsync({
-      address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
-      args : [ "0xC768B34f7F4f8A05AA51d741ef6027ec28c98558", BigInt(amount),],
-      value : priceInEther,
-    });
-  };
+  const result = useReadContract({
+    address: '0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91',
+    functionName: 'vendors',
+    args: ['0xC768B34f7F4f8A05AA51d741ef6027ec28c98558'],
+
+  })
 
 
   const handleSetAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +80,7 @@ export default function Page({ params }: { params: { name: string } }) {
       </div>
       <br></br>
       <br></br>
+      <div>My Post: {params.name}</div>
       <div className="flex flex-col items-center space-y-4">
         <header>
           <form onSubmit={(e) => e.preventDefault()}>
@@ -98,11 +96,6 @@ export default function Page({ params }: { params: { name: string } }) {
           <div style={{ fontSize: "1.2rem", fontWeight: "700" }}>
             <br></br>
             PRICE: {price}
-          </div>
-          <div>
-            <button onClick={handlePayment}>
-            Aceitas ?
-            </button>
           </div>
         </header>
 
