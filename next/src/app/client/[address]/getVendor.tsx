@@ -1,38 +1,50 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useReadContract } from 'wagmi';
-import * as React from 'react'
+import * as React from 'react';
 import { energyMarketAbi } from '../../../generated';
-export function GetVendors() {
+import { Address } from 'viem';
+import { endereco } from './page'
 
+
+
+export function GetVendors() {
     const abi = energyMarketAbi;
     const [vendor, setVendor] = useState("");
     const [resultData, setResultData] = useState({});
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleSetVendor = (event: React.ChangeEvent<HTMLInputElement>) => {
         setVendor(event.target.value);
     };
 
-
     const result = useReadContract({
-        abi,  // ta dizendo que o tipo n possui abi
+        abi: energyMarketAbi,
         functionName: 'vendors',
         address: '0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91',
-        args: ["0xC768B34f7F4f8A05AA51d741ef6027ec28c98558"],
+        args: [endereco as Address],
     });
+
+    useEffect(() => {
+        console.log("Contract read result:", result);
+    }, [result]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // Aqui assumimos que result.data é onde os dados serão armazenados
+        setIsSubmitted(true);
         if (result.data) {
-            setResultData(result.data);
+            console.log("Result data:", result.data);
+            setResultData({
+                Tax: result.data[1],
+                ReamainingCapacity: result.data[3]
+            });
         } else {
-            setResultData("No data found or an error occurred");
+            setResultData({ error: "No data found or an error occurred" });
         }
     };
 
-    const serializeResultData = (data: {}) => {
+    const serializeResultData = (data: any) => {
         if (typeof data === 'bigint') {
             return data.toString();
         }
@@ -55,12 +67,16 @@ export function GetVendors() {
                 required
             />
             <button type="submit">Submit</button>
-            {resultData && (
+            {isSubmitted && resultData && (
                 <div>
-                    <h3>Result:</h3>
-                    <pre>{JSON.stringify(serializeResultData(resultData), null, 2)}</pre>
+                    <h3>
+                        <div style={{ marginBottom: '-15px' }}>Tax: {serializeResultData(resultData.Tax)}</div>
+                        <br></br>
+                        <div>Reamaining Capacity: {serializeResultData(resultData.ReamainingCapacity)}</div>
+                    </h3>
                 </div>
-            )}
-        </form>
-    )
+            )
+            }
+        </form >
+    );
 }

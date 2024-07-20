@@ -8,6 +8,9 @@ import { SendTransaction } from "./sendtransaction";
 import { GetVendors } from "./getVendor"
 
 
+export const endereco: string = '0xC768B34f7F4f8A05AA51d741ef6027ec28c98558'
+
+
 const vendor = [
   { address: 0x1, name: "Vendor 1", taxa: 88, remainingCapacity: 1 },
   { address: 0x2, name: "Vendor 2", taxa: 10, remainingCapacity: 20 },
@@ -75,7 +78,6 @@ export default function Page({ params }: { params: { name: string } }) {
       </div>
       <br></br>
       <br></br>
-      <div>My Post: {params.name}</div>
       <div className="flex flex-col items-center space-y-4">
         <header>
           <form onSubmit={(e) => e.preventDefault()}>
