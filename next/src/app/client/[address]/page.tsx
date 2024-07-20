@@ -74,12 +74,11 @@ export default function Page({ params }: { params: { name: string } }) {
       }}
     >
       <div style={{ fontSize: "2rem", fontWeight: "700", textAlign: "center" }}>
-        {" "}
-        PURCHASE PAGE{" "}
+        PURCHASE PAGE
       </div>
       <br></br>
       <br></br>
-      <div className="flex flex-col items-center space-y-4">
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <header>
           <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <input

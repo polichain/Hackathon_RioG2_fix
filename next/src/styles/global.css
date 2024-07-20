@@ -541,4 +541,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  justify-content: center;
+  margin: 0;
 }
