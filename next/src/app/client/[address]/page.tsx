@@ -81,7 +81,7 @@ export default function Page({ params }: { params: { name: string } }) {
       <br></br>
       <div className="flex flex-col items-center space-y-4">
         <header>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <input
               type="number"
               value={amount}
@@ -92,15 +92,15 @@ export default function Page({ params }: { params: { name: string } }) {
             />
           </form>
           <div style={{ fontSize: "1.2rem", fontWeight: "700" }}>
-            <br></br>
             PRICE: {price}
           </div>
+          <br></br>
           <div>
-            <button onClick={handlePayment}>Aceitas ?</button>
+            <button onClick={handlePayment}> Tranfer </button>
           </div>
         </header>
 
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <GetVendors />
         </div>
 

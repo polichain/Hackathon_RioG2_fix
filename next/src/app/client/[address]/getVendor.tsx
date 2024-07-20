@@ -62,7 +62,7 @@ export function GetVendors() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <input
         name="vendor"
         placeholder="0xA0Cf…251e"
@@ -74,13 +74,12 @@ export function GetVendors() {
       {isSubmitted && resultData && (
         <div>
           <h3>
-            <div style={{ marginBottom: "-15px" }}>
+            <div style={{ marginBottom: "-15px", textAlign: "center" }}>
               Tax: {serializeResultData(resultData.Tax)}
             </div>
             <br></br>
-            <div>
-              Reamaining Capacity:{" "}
-              {serializeResultData(resultData.ReamainingCapacity)}
+            <div style={{ textAlign: "center" }}>
+              Reamaining Capacity: {serializeResultData(resultData.ReamainingCapacity)} {/* Reamaining Capacity:{" "} */}
             </div>
           </h3>
         </div>

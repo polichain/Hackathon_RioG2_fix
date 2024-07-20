@@ -28,16 +28,16 @@
 
 @media (prefers-color-scheme: dark) {
   :root[color-mode="user"] {
-      --color-accent: #0097fc4f;
-      --color-bg: #333;
-      --color-bg-secondary: #555;
-      --color-link: #0097fc;
-      --color-secondary: #e20de9;
-      --color-secondary-accent: #e20de94f;
-      --color-shadow: #bbbbbb20;
-      --color-table: #0097fc;
-      --color-text: #f7f7f7;
-      --color-text-secondary: #aaa;
+    --color-accent: #0097fc4f;
+    --color-bg: #333;
+    --color-bg-secondary: #555;
+    --color-link: #0097fc;
+    --color-secondary: #e20de9;
+    --color-secondary-accent: #e20de94f;
+    --color-shadow: #bbbbbb20;
+    --color-table: #0097fc;
+    --color-text: #f7f7f7;
+    --color-text-secondary: #aaa;
   }
 }
 
@@ -47,7 +47,7 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   html {
-      scroll-behavior: auto;
+    scroll-behavior: auto;
   }
 }
 
@@ -425,8 +425,7 @@ textarea {
 }
 
 input[type="text"],
-input[type="password"]
-textarea {
+input[type="password"] textarea {
   width: calc(100% - 1.6rem);
 }
 
@@ -535,4 +534,11 @@ blockquote footer {
 *::-webkit-scrollbar-thumb {
   background-color: var(--color-scrollbar);
   border-radius: 10px;
+}
+
+body {
+  background-image: url('/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }

@@ -54,59 +54,56 @@ export default function Page() {
   return (
     <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0px' }}>
       <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}>Vendor Page</div>
+      <br />
+      <div style={{ display: 'flex', gap: '2rem' }}>
+        <form onSubmit={handleCapacity} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <input
+            type="number"
+            value={capacity}
+            onChange={handleSetCapacity}
+            placeholder="Capacity"
+            style={{ padding: '8px 16px', border: '1px solid #ccc', borderRadius: '4px', marginBottom: '8px' }}
+          />
+          <button
+            type="submit"
+            style={{ padding: '8px 16px' }}
+            disabled={capacity_pending}
+          >
+            {capacity_pending ? "Submitting..." : "Submit"}
+          </button>
+          {capacity_sucess && (
+            <p style={{ color: 'green', textAlign: 'center' }}>Capacity changed successfully!</p>
+          )}
+          {error_capacity && <p style={{ color: 'red', fontWeight: '700', textAlign: 'center' }}>Error:</p>}
+        </form>
+
+        <form onSubmit={handleTax} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <input
+            type="number"
+            value={tax}
+            onChange={handleSetTax}
+            placeholder="Tax"
+            style={{ padding: '8px 16px', border: '1px solid #ccc', borderRadius: '4px', marginBottom: '8px' }}
+          />
+          <button
+            type="submit"
+            style={{ padding: '8px 16px' }}
+            disabled={tax_pending}
+          >
+            {tax_pending ? "Submitting..." : "Submit"}
+          </button>
+          {tax_sucess && (
+            <p style={{ color: 'green', textAlign: 'center' }}>Tax changed successfully!</p>
+          )}
+          {error_tax && <p style={{ color: 'red', fontWeight: '700', textAlign: 'center' }}>Error:</p>}
+        </form>
+      </div>
       <br></br>
-      <div className="flex flex-col items-center space-y-4">
-        <header>
-          <div>
-            <button onClick={handleWithdraw} className="px-4 py-2 border rounded">Withdrawn</button>
-          </div>
-          <br></br>
-          <div>
-            <form onSubmit={handleCapacity} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <input
-                type="number"
-                value={capacity}
-                onChange={handleSetCapacity}
-                placeholder="Capacity"
-                className="px-4 py-2 border rounded"
-              />
-              <button
-                type="submit"
-                style={{ padding: '8px 16px' }}
-                disabled={capacity_pending}
-              >
-                {capacity_pending ? "Submitting..." : "Submit"}
-              </button>
-              {capacity_sucess && (
-                <p style={{ color: 'green', textAlign: 'center' }}>Capacity changed successfully!</p>
-              )}
-              {error_capacity && <p style={{ color: 'red', fontWeight: '700', textAlign: 'center' }}>Error:</p>}
-            </form>
-          </div>
-          <div>
-            <form onSubmit={handleTax} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <input
-                type="number"
-                value={tax}
-                onChange={handleSetTax}
-                placeholder="Tax"
-                className="px-4 py-2 border rounded"
-              />
-              <button
-                type="submit"
-                style={{ padding: '8px 16px' }}
-                disabled={tax_pending}
-              >
-                {tax_pending ? "Submitting..." : "Submit"}
-              </button>
-              {tax_sucess && (
-                <p style={{ color: 'green', textAlign: 'center' }}>Tax changed successfully!</p>
-              )}
-              {error_tax && <p style={{ color: 'red', fontWeight: '700', textAlign: 'center' }}>Error:</p>}
-            </form>
-          </div>
-        </header>
-      </div >
-    </main >
+      <div>
+        <button onClick={handleWithdraw} style={{ padding: '12px 24px', fontSize: '1.25rem', backgroundColor: '#27963e', border: 'none' }}>
+          Withdraw
+        </button>
+      </div>
+    </main>
   );
 }
