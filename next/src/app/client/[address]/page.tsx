@@ -6,6 +6,8 @@ import { useReadContract } from 'wagmi'
 import React, { useState } from "react";
 import { SendTransaction } from "./sendtransaction";
 import { GetVendors } from "./getVendor"
+import { useWriteEnergyMarketBuyEnergy } from "../../../generated";
+import { parseEther } from 'viem';
 
 
 export const endereco: string = '0xC768B34f7F4f8A05AA51d741ef6027ec28c98558'
@@ -19,7 +21,7 @@ const vendor = [
 
 export function calculatePrice(address: number, amount: number) {
   let price; //Valor a ser pago
-  let energyCost = 100; //valor de cada lugar
+  let energyCost = 1; //valor de cada lugar
   if (vendor[address].remainingCapacity >= amount) {
     price = amount * energyCost;
     vendor[address].remainingCapacity -= amount; //precisa mandar isso para o banco de dados tb
@@ -37,17 +39,19 @@ export default function Page({ params }: { params: { name: string } }) {
   const [amount, setAmount] = useState<number | "">("");
   const [price, setPrice] = useState<number | "">(0);
 
-  //const { readContract, isSuccess, isError, isPending } =
-  // useReadEnergyMarketVendors();
+  const { writeContractAsync, isSuccess, isError, isPending, } =
+    useWriteEnergyMarketBuyEnergy();
 
+  const priceInEther = parseEther(price.toString());
 
-  const result = useReadContract({
-    address: '0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91',
-    functionName: 'vendors',
-    args: ['0xC768B34f7F4f8A05AA51d741ef6027ec28c98558'],
-
-  })
-
+  const handlePayment = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    await writeContractAsync({
+      address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
+      args: ["0xC768B34f7F4f8A05AA51d741ef6027ec28c98558", BigInt(amount),],
+      value: priceInEther,
+    });
+  };
 
   const handleSetAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value === "" ? "" : Number(event.target.value);
@@ -78,6 +82,7 @@ export default function Page({ params }: { params: { name: string } }) {
       </div>
       <br></br>
       <br></br>
+      <div>My Post: {params.name}</div>
       <div className="flex flex-col items-center space-y-4">
         <header>
           <form onSubmit={(e) => e.preventDefault()}>
@@ -93,6 +98,11 @@ export default function Page({ params }: { params: { name: string } }) {
           <div style={{ fontSize: "1.2rem", fontWeight: "700" }}>
             <br></br>
             PRICE: {price}
+          </div>
+          <div>
+            <button onClick={handlePayment}>
+              Aceitas ?
+            </button>
           </div>
         </header>
 
@@ -112,8 +122,6 @@ export default function Page({ params }: { params: { name: string } }) {
         </div>
 
         <br></br>
-
-        <SendTransaction />
       </div>
     </main>
   );
