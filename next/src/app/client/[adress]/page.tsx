@@ -2,9 +2,11 @@
 
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Image from "next/image";
+import { useReadContract } from 'wagmi'
 import React, { useState } from "react";
 import { SendTransaction } from "./sendtransaction";
+import { GetVendors } from "./getVendor"
+
 
 const vendor = [
   { address: 0x1, name: "Vendor 1", taxa: 88, remainingCapacity: 1 },
@@ -31,6 +33,18 @@ export function calculatePrice(address: number, amount: number) {
 export default function Page({ params }: { params: { name: string } }) {
   const [amount, setAmount] = useState<number | "">("");
   const [price, setPrice] = useState<number | "">(0);
+
+  //const { readContract, isSuccess, isError, isPending } =
+  // useReadEnergyMarketVendors();
+
+
+  const result = useReadContract({
+    address: '0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91',
+    functionName: 'vendors',
+    args: ['0xC768B34f7F4f8A05AA51d741ef6027ec28c98558'],
+
+  })
+
 
   const handleSetAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value === "" ? "" : Number(event.target.value);
@@ -79,6 +93,10 @@ export default function Page({ params }: { params: { name: string } }) {
             PRICE: {price}
           </div>
         </header>
+
+        <div>
+          <GetVendors />
+        </div>
 
         <div
           style={{
