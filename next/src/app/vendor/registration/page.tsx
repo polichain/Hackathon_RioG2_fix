@@ -1,6 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { useWriteEnergyMarketAddVendor } from "../../../generated"; // Certifique-se de que o caminho esteja correto
+import { addVendor } from "../../../data";
+import { useAccount } from "wagmi";
+
 
 export default function Page() {
   const [capacity, setCapacity] = useState<number | "">("");
@@ -9,6 +12,10 @@ export default function Page() {
 
   const { writeContractAsync, isSuccess, isError, isPending } =
     useWriteEnergyMarketAddVendor();
+
+  const { address: accountAddress } = useAccount();
+  const strippedAddress: string | undefined = accountAddress as string;
+    
 
   const handleSetPlace = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlace(event.target.value);
@@ -28,6 +35,7 @@ export default function Page() {
       address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
       args: [BigInt(capacity), BigInt(tax)],
     });
+    await addVendor( place,strippedAddress);
   };
 
   return (
