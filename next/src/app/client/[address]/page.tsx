@@ -68,7 +68,7 @@ export default function Page({ params }: { params: { address: string } }) {
       const value = amount === "" ? 0 : amount;
       const tax = resultData.Tax ?? 0; // Use 0 as default if Tax is undefined
       const remainingCapacity = resultData.RemainingCapacity ?? 0;
-      setPrice(calculatePrice(value, tax, 10, remainingCapacity));
+      setPrice(calculatePrice(value, tax, 3, remainingCapacity));
     }
   };
 
