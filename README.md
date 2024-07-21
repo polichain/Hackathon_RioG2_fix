@@ -1,36 +1,37 @@
 # Energy Market
 
-### Visão Geral
-Este projeto é uma plataforma de comercialização de energia elétrica que permite aos usuários comprar energia através de um contrato inteligente desenvolvidos. 
+### Overview
+This project is a platform for trading electrical energy, allowing users to purchase energy through developed smart contracts.
 
-### Objetivo
-O projeto tem como um dos intuitos fomentar a energia renovável no contexto atual, facilitando a compra de tal em detrimento da energia elétrica convencional. Além disso, o Energy Market tem como objetiva facilitar a disponibilidade de postos de carregamento para carros elétricos.
+### Objective
+One of the main goals of the project is to promote renewable energy in the current context, making it easier to purchase such energy over conventional electrical energy. Additionally, Energy Market aims to facilitate the availability of charging stations for electric cars.
 
-### Tecnologias Utilizadas
+### Technologies Used
 
-- **Next.js**: estrutura da web de desenvolvimento front-end React
-- **Solidity**: Linguagem de programação para contratos inteligentes em Ethereum.
-- **Wagmi**: Biblioteca para trabalhar com contratos inteligentes e interagir com a blockchain.
-- **RainbowKit**: Conjunto de ferramentas para integração de carteiras.
-- **Vercel**: Plataforma para estruturação e conexão do banco de dados.
+- **Next.js**: web development framework for front-end React.
+- **Solidity**: programming language for smart contracts on Ethereum.
+- **Wagmi**: library for working with smart contracts and interacting with the blockchain.
+- **RainbowKit**: set of tools for wallet integration.
+- **Vercel**: platform for structuring and connecting the database.
 
-### Funcionalidades
+### Features
 
-- **Compra de Energia**: Permite aos usuários comprar energia através de contratos inteligentes.
-- **Venda de Energia**: Permite aos usuários venderem a energia renovável que não está sendo utilizada e colocar o próprio local como posto de energia elétrica.
-- **Integração de Carteiras**: Utiliza RainbowKit para conectar carteiras de criptomoedas.
-- **Interação com Contratos**: Utiliza Wagmi para facilitar a interação com contratos inteligentes.
+- **Energy Purchase:** Allows users to buy energy through smart contracts.
+- **Energy Sale:** Allows users to sell unused renewable energy and set up their own location as an electric charging station.
+- **Wallet Integration:** Uses RainbowKit to connect cryptocurrency wallets.
+- **Contract Interaction:** Uses Wagmi to facilitate interaction with smart contracts.
 
-### Link de Deploy
+### Deployment Link
 [Energy Market](https://hackathon-rio-g2-fix.vercel.app/)
 
-### Instalação e Execução local
-1. Clone este repositório:
+### Installation and Local Execution
+
+1. Clone this repository:
     ```bash
     git clone https://github.com/polichain/Hackathon_RioG2_fix.git
     cd Hackathon_RioG2_fix/
     ```
-2. Instale as dependências na pasta next
+2. Install dependencies in the next folder
     ```bash
     npm install
 
@@ -40,10 +41,10 @@ O projeto tem como um dos intuitos fomentar a energia renovável no contexto atu
 
     npm i @vercel/postgres
     ```
-3. Inicialize o servidor localmente
+3. Start the server locally
    ```bash
    npm run dev
    ```
-4. Acesse o http://localhost:3000
+4. Access http://localhost:3000
 
 
