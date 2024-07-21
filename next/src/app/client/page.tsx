@@ -50,7 +50,7 @@ export default function Page() {
             padding: '20px',
             marginTop: '10px',
             textAlign: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.8)' // Semi-transparent background
+            backgroundColor: 'rgba(255, 255, 255, 0.8)'
           }}>
             <div style={{ fontSize: '1.5rem', fontWeight: '700' }}>PLACES: </div>
             <ul style={{ listStyleType: 'none', padding: 0 }}>

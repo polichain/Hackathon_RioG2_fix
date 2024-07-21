@@ -16,7 +16,7 @@ interface ResultData {
   error?: string;
 }
 
-export function calculatePrice(amount: number, tax : number, energyCost : number, remainingCapacity : number) {
+export function calculatePrice(amount: number, tax: number, energyCost: number, remainingCapacity: number) {
   let price; //Valor a ser pago
   if (remainingCapacity >= amount) {
     price = amount * energyCost;
@@ -62,13 +62,13 @@ export default function Page({ params }: { params: { address: string } }) {
       value: priceInEther,
     });
   };
-  
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (result.data) {
       setResultData({
         Tax: Number(result.data[1]),
-        RemainingCapacity: Number(result.data[3]), 
+        RemainingCapacity: Number(result.data[3]),
       });
     } else {
       setResultData({ error: "No data found or an error occurred" });
@@ -78,26 +78,25 @@ export default function Page({ params }: { params: { address: string } }) {
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       handleSubmit;
-      event.preventDefault(); 
+      event.preventDefault();
       const value = amount === "" ? 0 : amount;
       const tax = resultData.Tax ?? 0; // Use 0 as default if Tax is undefined
-      const remainingCapacity = resultData.RemainingCapacity ?? 0; 
-        setPrice(calculatePrice(value, tax, 10,remainingCapacity));    
+      const remainingCapacity = resultData.RemainingCapacity ?? 0;
+      setPrice(calculatePrice(value, tax, 10, remainingCapacity));
     }
   };
-  
+
   return (
     <main
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "1px",
+        padding: "1px"
       }}
     >
       <div style={{ fontSize: "2rem", fontWeight: "700", textAlign: "center" }}>
-        {" "}
-        PURCHASE PAGE{" "}
+        PURCHASE PAGE
       </div>
 
       <br></br>
@@ -110,6 +109,7 @@ export default function Page({ params }: { params: { address: string } }) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              backgroundColor: 'rgba(255, 255, 255, 0.8)'
             }}
           >
             <input
@@ -118,7 +118,7 @@ export default function Page({ params }: { params: { address: string } }) {
               onChange={handleSetAmount}
               onKeyPress={handleKeyPress}
               placeholder="Amount"
-              className="px-4 py-2 border rounded"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
             />
           </form>
           <div style={{ fontSize: "1.2rem", fontWeight: "700" }}>
