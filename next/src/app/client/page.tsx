@@ -1,20 +1,31 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { fetchAllVendors } from "../../data";
 
-export const vendors = [
-  { address: "0xC768B34f7F4f8A05AA51d741ef6027ec28c98558", name: "vendor 1" },
-  { address: "0x2", name: "vendor 2" },
-  { address: "0x3", name: "vendor 3" },
-];
+type Vendor = {
+  id: number;
+  place: string;
+  address: string;
+};
 
 export default function Page() {
+  const [data, setData] = useState<Vendor[]>([]);
   const [showVendors, setShowVendors] = useState(false);
+  const [showVendors2, setShowVendors2] = useState(false);
 
-  const toggleVendors = () => {
+  const toggleVendors = async () => {
+    setData(await fetchAllVendors());
     setShowVendors(!showVendors);
   };
 
+  const toggleVendors2 = async () => {
+    setShowVendors(!showVendors);
+    if (!showVendors) {
+      const vendorsData = await fetchAllVendors();
+      setData(vendorsData);
+    }
+  };
   return (
     <main
       style={{
@@ -27,6 +38,23 @@ export default function Page() {
     >
       <div style={{ fontSize: "2rem", fontWeight: "700", textAlign: "center" }}>
         Buy Energy
+      </div>
+      <div>
+        <button onClick={toggleVendors2}>
+          {showVendors ? "Hide Vendors" : "Show Vendors"}
+        </button>
+        {showVendors && (
+          <ul>
+            {data.map((vendor) => (
+              <li key={vendor.id}>
+                Lugar: {vendor.place} -{" "}
+                <Link href={`/client/${vendor.address}`}>
+                  Endereço: {vendor.address}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <br></br>
       <div className="flex flex-col items-center space-y-4">
@@ -50,17 +78,7 @@ export default function Page() {
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 width: "320px",
               }}
-            >
-              <ul style={{ listStyleType: "none", padding: "0", margin: "0" }}>
-                {vendors.map((vendor, index) => (
-                  <Link key={index} href={`/client/${vendor.address}`}>
-                    <li style={{ padding: "10px", cursor: "pointer" }}>
-                      {vendor.name}
-                    </li>
-                  </Link>
-                ))}
-              </ul>
-            </div>
+            ></div>
           )}
         </header>
       </div>
