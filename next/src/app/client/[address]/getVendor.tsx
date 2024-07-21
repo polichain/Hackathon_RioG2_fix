@@ -10,10 +10,15 @@ type GetVendorsProps = {
   endereco: string;
 };
 
+interface ResultData {
+  Tax?: number; // Use ? to denote that the property is optional
+  RemainingCapacity?: number;
+  error?: string;
+}
+
 const GetVendors: React.FC<GetVendorsProps> = ({ endereco }) => {
-  const abi = energyMarketAbi;
   let [vendor, setVendor] = useState("");
-  const [resultData, setResultData] = useState({});
+  const [resultData, setResultData] = useState<ResultData>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   vendor = endereco;
@@ -29,24 +34,22 @@ const GetVendors: React.FC<GetVendorsProps> = ({ endereco }) => {
   });
 
   useEffect(() => {
-    console.log("Contract read result:", result);
   }, [result]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitted(true);
     if (result.data) {
-      console.log("Result data:", result.data);
       setResultData({
-        Tax: result.data[1],
-        ReamainingCapacity: result.data[3],
+        Tax: Number(result.data[1]),
+        RemainingCapacity:Number(result.data[3]), // Corrigido de ReamainingCapacity para RemainingCapacity
       });
     } else {
       setResultData({ error: "No data found or an error occurred" });
     }
   };
 
-  const serializeResultData = (data: any) => {
+  const serializeResultData = (data: any): any => { // Adicionada anotação de tipo de retorno
     if (typeof data === "bigint") {
       return data.toString();
     }
@@ -80,9 +83,9 @@ const GetVendors: React.FC<GetVendorsProps> = ({ endereco }) => {
             </div>
             <br></br>
             <div style={{ textAlign: "center" }}>
-              Reamaining Capacity:{" "}
-              {serializeResultData(resultData.ReamainingCapacity)}{" "}
-              {/* Reamaining Capacity:{" "} */}
+              Remaining Capacity:{" "}
+              {serializeResultData(resultData.RemainingCapacity)}{" "}
+              {/* Remaining Capacity:{" "} */}
             </div>
           </h3>
         </div>
