@@ -9,26 +9,12 @@ import {
 } from "../../../generated";
 import { parseEther } from "viem";
 import { Address } from "viem";
+import { calculatePrice } from "./calculatePrice";
 
 interface ResultData {
   Tax?: number; // Use ? to denote that the property is optional
   RemainingCapacity?: number;
   error?: string;
-}
-
-export function calculatePrice(amount: number, tax: number, energyCost: number, remainingCapacity: number) {
-  let price; //Valor a ser pago
-  if (remainingCapacity >= amount) {
-    price = amount * energyCost;
-    remainingCapacity -= amount; //precisa mandar isso para o banco de dados tb
-  } else {
-    price = remainingCapacity * energyCost;
-    amount -= remainingCapacity;
-    price +=
-      amount * energyCost + amount * energyCost * (tax / 100);
-    remainingCapacity = 0; //atualizar no banco de dados
-  }
-  return price;
 }
 
 export default function Page({ params }: { params: { address: string } }) {
