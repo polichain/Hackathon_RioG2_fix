@@ -1,26 +1,51 @@
 "use client";
 
-import { useAccount } from "wagmi";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useReadContract } from "wagmi";
 import React, { useState } from "react";
-import { SendTransaction } from "./sendtransaction";
 import GetVendors from "./getVendor";
 import {
   energyMarketAbi,
   useWriteEnergyMarketBuyEnergy,
 } from "../../../generated";
 import { parseEther } from "viem";
-import { usePathname } from "next/navigation";
 import { Address } from "viem";
 
+interface ResultData {
+  Tax?: number; // Use ? to denote that the property is optional
+  RemainingCapacity?: number;
+  error?: string;
+}
+
+export function calculatePrice(amount: number, tax : number, energyCost : number, remainingCapacity : number) {
+  let price; //Valor a ser pago
+  if (remainingCapacity >= amount) {
+    price = amount * energyCost;
+    remainingCapacity -= amount; //precisa mandar isso para o banco de dados tb
+  } else {
+    price = remainingCapacity * energyCost;
+    amount -= remainingCapacity;
+    price +=
+      amount * energyCost + amount * energyCost * (tax / 100);
+    remainingCapacity = 0; //atualizar no banco de dados
+  }
+  return price;
+}
+
 export default function Page({ params }: { params: { address: string } }) {
+
+  const [resultData, setResultData] = useState<ResultData>({});
+
   const [amount, setAmount] = useState<number | "">("");
   const [price, setPrice] = useState<number | "">(0);
   const { writeContractAsync, isSuccess, isError, isPending } =
     useWriteEnergyMarketBuyEnergy();
   const nome: string = params.address;
   const priceInEther = parseEther(price.toString());
+
+  const handleSetAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value === "" ? "" : Number(event.target.value);
+    setAmount(value);
+  };
 
   const result = useReadContract({
     abi: energyMarketAbi,
@@ -37,54 +62,30 @@ export default function Page({ params }: { params: { address: string } }) {
       value: priceInEther,
     });
   };
-
-  function calculatePrice(address: number, amount: number) {
-    let price; //Valor a ser pago
-    let energyCost = 1; //valor de cada lugar
-    if (vendor[address].remainingCapacity >= amount) {
-      price = amount * energyCost;
-      vendor[address].remainingCapacity -= amount; //precisa mandar isso para o banco de dados tb
-    } else {
-      price = vendor[address].remainingCapacity * energyCost;
-      amount -= vendor[address].remainingCapacity;
-      price +=
-        amount * energyCost +
-        amount * energyCost * (vendor[address].taxa / 100);
-      vendor[address].remainingCapacity = 0; //atualizar no banco de dados
-    }
-    return price;
-  }
-
-  const handleSetAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value === "" ? "" : Number(event.target.value);
-    setAmount(value);
-  };
-
-  const [resultData, setResultData] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitted(true);
     if (result.data) {
-      console.log("Result data:", result.data);
       setResultData({
-        Tax: result.data[1],
-        ReamainingCapacity: result.data[3],
+        Tax: Number(result.data[1]),
+        RemainingCapacity: Number(result.data[3]), 
       });
     } else {
       setResultData({ error: "No data found or an error occurred" });
     }
   };
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      event.preventDefault(); //faz com q só atualize o price dps do enter
+      handleSubmit;
+      event.preventDefault(); 
       const value = amount === "" ? 0 : amount;
-      const address = nome;
-      setPrice(calculatePrice(address, value)); // Calcula o preço
+      const tax = resultData.Tax ?? 0; // Use 0 as default if Tax is undefined
+      const remainingCapacity = resultData.RemainingCapacity ?? 0; 
+        setPrice(calculatePrice(value, tax, 10,remainingCapacity));    
     }
   };
-
+  
   return (
     <main
       style={{
