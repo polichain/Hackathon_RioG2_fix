@@ -6,14 +6,17 @@ import * as React from "react";
 import { energyMarketAbi } from "../../../generated";
 import { Address } from "viem";
 
-export let endereco: string;
+type GetVendorsProps = {
+  endereco: string;
+};
 
-export function GetVendors() {
+const GetVendors: React.FC<GetVendorsProps> = ({ endereco }) => {
   const abi = energyMarketAbi;
-  const [vendor, setVendor] = useState("");
+  let [vendor, setVendor] = useState("");
   const [resultData, setResultData] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  vendor = endereco;
   const handleSetVendor = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVendor(event.target.value);
   };
@@ -62,15 +65,11 @@ export function GetVendors() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <input
-        name="vendor"
-        placeholder="0xA0Cf…251e"
-        value={endereco}
-        onChange={handleSetVendor}
-        required
-      />
-      <button type="submit">Submit</button>
+    <form
+      onSubmit={handleSubmit}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <button type="submit">See vendor information</button>
       {isSubmitted && resultData && (
         <div>
           <h3>
@@ -79,11 +78,14 @@ export function GetVendors() {
             </div>
             <br></br>
             <div style={{ textAlign: "center" }}>
-              Reamaining Capacity: {serializeResultData(resultData.ReamainingCapacity)} {/* Reamaining Capacity:{" "} */}
+              Reamaining Capacity:{" "}
+              {serializeResultData(resultData.ReamainingCapacity)}{" "}
+              {/* Reamaining Capacity:{" "} */}
             </div>
           </h3>
         </div>
       )}
     </form>
   );
-}
+};
+export default GetVendors;
