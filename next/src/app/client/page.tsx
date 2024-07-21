@@ -29,58 +29,41 @@ export default function Page() {
   return (
     <main
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px',
       }}
     >
-      <div style={{ fontSize: "2rem", fontWeight: "700", textAlign: "center" }}>
+      <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}>
         Buy Energy
       </div>
       <div>
         <button onClick={toggleVendors2}>
-          {showVendors ? "Hide Vendors" : "Show Vendors"}
+          {showVendors ? 'Hide Vendors' : 'Select Vendors'}
         </button>
         {showVendors && (
-          <ul>
-            {data.map((vendor) => (
-              <li key={vendor.id}>
-                Lugar: {vendor.place} -{" "}
-                <Link href={`/client/${vendor.address}`}>
-                  Endereço: {vendor.address}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-      <br></br>
-      <div className="flex flex-col items-center space-y-4">
-        <header>
-          <div className="flex justify-center">
-            <button
-              onClick={toggleVendors}
-              className="px-4 py-2 border rounded"
-            >
-              Select Vendor
-            </button>
+          <div style={{
+            border: '1px solid black',
+            borderRadius: '5px',
+            padding: '20px',
+            marginTop: '10px',
+            textAlign: 'center',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)' // Semi-transparent background
+          }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: '700' }}>PLACES: </div>
+            <ul style={{ listStyleType: 'none', padding: 0 }}>
+              {data.map((vendor) => (
+                <li key={vendor.id} style={{ margin: '0px 0' }}>
+                  <Link href={`/client/${vendor.address}`}>
+                    {vendor.place}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-          {showVendors && (
-            <div
-              style={{
-                marginTop: "10px",
-                border: "1px solid #ccc",
-                padding: "10px",
-                borderRadius: "4px",
-                backgroundColor: "white",
-                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                width: "320px",
-              }}
-            ></div>
-          )}
-        </header>
+        )}
       </div>
     </main>
   );
