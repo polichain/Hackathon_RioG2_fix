@@ -67,7 +67,9 @@ const GetVendors: React.FC<GetVendorsProps> = ({ endereco }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: 'rgba(255, 255, 255, 0.8)'
+      }}
     >
       <button type="submit">See vendor information</button>
       {isSubmitted && resultData && (

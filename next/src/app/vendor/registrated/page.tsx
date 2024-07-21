@@ -56,7 +56,7 @@ export default function Page() {
       <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}>Vendor Page</div>
       <br />
       <div style={{ display: 'flex', gap: '2rem' }}>
-        <form onSubmit={handleCapacity} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <form onSubmit={handleCapacity} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
           <input
             type="number"
             value={capacity}
@@ -77,7 +77,7 @@ export default function Page() {
           {error_capacity && <p style={{ color: 'red', fontWeight: '700', textAlign: 'center' }}>Error:</p>}
         </form>
 
-        <form onSubmit={handleTax} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <form onSubmit={handleTax} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
           <input
             type="number"
             value={tax}
