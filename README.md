@@ -41,10 +41,12 @@ One of the main goals of the project is to promote renewable energy in the curre
 
     npm i @vercel/postgres
     ```
-3. Start the server locally
+3. Add your database on file .env
+
+4. Start the server locally
    ```bash
    npm run dev
    ```
-4. Access http://localhost:3000
+5. Access http://localhost:3000
 
 
